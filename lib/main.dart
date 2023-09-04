@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:provider_practice/provider/count_provider.dart';
 import 'package:provider_practice/provider/favourite_provider.dart';
 import 'package:provider_practice/provider/slider_provider.dart';
-import 'package:provider_practice/screens/favourite/favourite_screen.dart';
+import 'package:provider_practice/provider/theme_changer_provider.dart';
+import 'package:provider_practice/screens/dark_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,18 +24,32 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => SliderProvider(),
         ),
-         ChangeNotifierProvider(
+        ChangeNotifierProvider(
           create: (_) => FavouriteItemProvider(),
         ),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.deepPurple,
-          useMaterial3: true,
+        ChangeNotifierProvider(
+          create: (_) => ThemeChanger(),
         ),
-        home: const FavouriteScreen(),
+      ],
+      child: Builder(
+        builder: (BuildContext context) {
+          final themeChanger = Provider.of<ThemeChanger>(context);
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter Demo',
+            themeMode: themeChanger.themeMode,
+            theme: ThemeData(
+              brightness: Brightness.light,
+              appBarTheme: const AppBarTheme(backgroundColor: Colors.red),
+              useMaterial3: true,
+            ),
+            darkTheme: ThemeData(
+              brightness: Brightness.dark,
+              appBarTheme: const AppBarTheme(backgroundColor: Colors.teal),
+            ),
+            home: const DarkThemeScreen(),
+          );
+        },
       ),
     );
   }
