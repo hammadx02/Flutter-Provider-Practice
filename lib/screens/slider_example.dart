@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:provider_practice/provider/slider_provider.dart';
 
 class SliderExample extends StatefulWidget {
   const SliderExample({super.key});
@@ -8,9 +10,10 @@ class SliderExample extends StatefulWidget {
 }
 
 class _SliderExampleState extends State<SliderExample> {
-  double value = 1.0;
   @override
   Widget build(BuildContext context) {
+    // final provider = Provider.of<SliderProvider>(context, listen: false);
+    print('build');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Slider Example'),
@@ -18,36 +21,43 @@ class _SliderExampleState extends State<SliderExample> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Slider(
-            min: 0,
-            max: 1,
-            value: value,
-            onChanged: (val) {
-              value = val;
-              setState(() {});
+          Consumer<SliderProvider>(
+            builder: (context, value, child) {
+              return Slider(
+                min: 0,
+                max: 1,
+                value: value.value,
+                onChanged: (val) {
+                  value.setValue(val);
+                },
+              );
             },
           ),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  color: Colors.green.withOpacity(value),
-                  height: 100,
-                  child: const Center(
-                    child: Text('Container 1'),
+          Consumer<SliderProvider>(
+            builder: (context, value, child) {
+              return Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      color: Colors.green.withOpacity(value.value),
+                      height: 100,
+                      child: const Center(
+                        child: Text('Container 1'),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  color: Colors.red.withOpacity(value),
-                  height: 100,
-                  child: const Center(
-                    child: Text('Container 2'),
+                  Expanded(
+                    child: Container(
+                      color: Colors.red.withOpacity(value.value),
+                      height: 100,
+                      child: const Center(
+                        child: Text('Container 2'),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ],
+                ],
+              );
+            },
           ),
         ],
       ),
