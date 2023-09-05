@@ -4,7 +4,7 @@ import 'package:provider_practice/provider/count_provider.dart';
 import 'package:provider_practice/provider/favourite_provider.dart';
 import 'package:provider_practice/provider/slider_provider.dart';
 import 'package:provider_practice/provider/theme_changer_provider.dart';
-import 'package:provider_practice/provider/value_notify_listener.dart';
+import 'package:provider_practice/screens/favourite/login.dart';
 
 
 void main() {
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
               brightness: Brightness.dark,
               appBarTheme: const AppBarTheme(backgroundColor: Colors.teal),
             ),
-            home:  NotifyListnerScreen(),
+            home:  const LoginScreen(),
           );
         },
       ),
