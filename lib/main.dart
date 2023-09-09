@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
           final themeChanger = Provider.of<ThemeChanger>(context);
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Provider Practice',
+            
             themeMode: themeChanger.themeMode,
             theme: ThemeData(
               brightness: Brightness.light,
